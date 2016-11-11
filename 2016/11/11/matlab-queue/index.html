@@ -3,14 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>PlayJokes</title>
+  <title>Matlab使用队列方法 | PlayJokes</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="PlayJokes">
-<meta property="og:url" content="http://yoursite.com/index.html">
+  <meta name="description" content="Matlab使用队列方法在实现排队论算法过程中，需要使用队列数据结构；然Matlab中无基础数据结构，搜索无果；其中发现有自己时间队列，但有各种问题，随放弃。
+发现有更好的替代方式：直接使用Java库中LinkedList库http://undocumentedmatlab.com/blog/using-java-collections-in-matlab
+
+Java Collections in">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Matlab使用队列方法">
+<meta property="og:url" content="http://yoursite.com/2016/11/11/matlab-queue/index.html">
 <meta property="og:site_name" content="PlayJokes">
+<meta property="og:description" content="Matlab使用队列方法在实现排队论算法过程中，需要使用队列数据结构；然Matlab中无基础数据结构，搜索无果；其中发现有自己时间队列，但有各种问题，随放弃。
+发现有更好的替代方式：直接使用Java库中LinkedList库http://undocumentedmatlab.com/blog/using-java-collections-in-matlab
+
+Java Collections in">
+<meta property="og:updated_time" content="2016-11-11T08:07:05.985Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="PlayJokes">
+<meta name="twitter:title" content="Matlab使用队列方法">
+<meta name="twitter:description" content="Matlab使用队列方法在实现排队论算法过程中，需要使用队列数据结构；然Matlab中无基础数据结构，搜索无果；其中发现有自己时间队列，但有各种问题，随放弃。
+发现有更好的替代方式：直接使用Java库中LinkedList库http://undocumentedmatlab.com/blog/using-java-collections-in-matlab
+
+Java Collections in">
   
     <link rel="alternate" href="/atom.xml" title="PlayJokes" type="application/atom+xml">
   
@@ -59,9 +72,7 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-    <article id="post-matlab-queue" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-matlab-queue" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2016/11/11/matlab-queue/" class="article-date">
   <time datetime="2016-11-11T08:05:50.000Z" itemprop="datePublished">2016-11-11</time>
@@ -74,8 +85,8 @@
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/11/matlab-queue/">Matlab使用队列方法</a>
+    <h1 class="article-title" itemprop="name">
+      Matlab使用队列方法
     </h1>
   
 
@@ -159,129 +170,19 @@ queue =
     </footer>
   </div>
   
-</article>
-
-
+    
+<nav id="article-nav">
   
-    <article id="post-learning-matlab" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2016/11/11/learning-matlab/" class="article-date">
-  <time datetime="2016-11-11T07:51:29.000Z" itemprop="datePublished">2016-11-11</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/11/11/learning-matlab/">Matlab学习笔记</a>
-    </h1>
+    <a href="/2016/11/11/learning-matlab/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">Matlab学习笔记</div>
+    </a>
   
+</nav>
 
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Matlab基础"><a href="#Matlab基础" class="headerlink" title="Matlab基础"></a>Matlab基础</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p><em>数组</em></p>
-<p>数组在内存中按列存储</p>
-<p>数组引用方式：<br>下标引用，以二维数组为例<code>A(a,b)</code>中a、b可由数字，冒号，end表示；a表示行，b表示列，若引用原数组中没有的元素，将扩展数组并且添加扩展的元素为0</p>
-<p>冒号使用:<br>单冒号    :表示所有元素<br>双元素冒号 5:10表示从5开始到10号6个元素，包含首尾。<br>三元素冒号 5:2:10表示从5开始到10号以间隔2选取元素[5,7,9]</p>
-<pre><code>&gt;&gt; A = magic(4)
-A = 16  2   3  13
-    5  11  10   8
-    9   7   6  12
-    4  14  15   1
-&gt;&gt; A(3,4) 
-    ans = 12
-
-&gt;&gt; A(1:end,2)
-ans =   2
-       11
-        7
-       14
-&gt;&gt; A(:) 
-ans = 16
-       5
-       9
-       .
-       .
-      12
-       1
-</code></pre><p>向量、布尔引用</p>
-<p>A([1,2])得到按需引用的列向量<br>x=A&gt;5 得到bool数组，<br>A(x) 得到按需引用的列向量</p>
-<h3 id="函数接口"><a href="#函数接口" class="headerlink" title="函数接口"></a>函数接口</h3><p><em>zeros(m,n,p…,classname)</em></p>
-<h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p>返回一个<code>m×n×p×...</code>的classname类型的零矩阵；<br>若无指定classname，默认返回double类型矩阵 </p>
-<p>classname取值：<code>&#39;double&#39;</code>,<code>&#39;single&#39;</code>, <code>&#39;int8&#39;</code>, <code>&#39;uint8&#39;</code>, <code>&#39;int16&#39;</code>, <code>&#39;uint16&#39;</code>, <code>&#39;int32&#39;</code>, or <code>&#39;uint32&#39;</code></p>
-<p>例：<code>zeros(3,2,&#39;uint8&#39;)</code>，<code>zeros(3,2)</code></p>
-<p><em>exprnd(mu,m,n,…)</em></p>
-<h4 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h4><p>生成指定以mu为底的指数分布函数的随机数，返回的随机数结构与mu相同，mu可以为向量，矩阵等形式。</p>
-<p>例：</p>
-<pre><code>n1 = exprnd(5:10)
-n1 = 7.5943  18.3400  2.7113  3.0936  0.6078  9.5841
-
-n2 = exprnd(5,2,3)
-n2 = 24.3339  13.5271  1.8788
-     4.7932   4.3675  2.6468
-</code></pre><p><em>cumsum(A,dim)</em></p>
-<h4 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h4><p>返回A中各行的累加值，dim表示按第dim维累加，dim可以省略。cumsum函数返回结构同A。</p>
-<p>若A是一维向量， cumsum(A) 返回一个向量，该向量中第m行的元素是A中第1行到第m行的所有元素累加和；</p>
-<p>若A为二维数组，cumsum(A) = cumsum(A, 1)，结果中第m行第n列元素是A中第1行到第m行的所有第n列元素的累加和；同理 cumsum(A, 2)结果中第m行第n列元素是A中第1列到第m列的所有第n行元素的累加和；</p>
-<p>多维数组同二维。</p>
-<p>例：</p>
-<pre><code>&gt;&gt;A=[1,2,3,4,5]
-
-A =  1     2     3     4     5
-
-&gt;&gt;cumsum(A)
-
-ans = 1     3     6    10    15
-
-&gt;&gt;A=magic(4)
-
-A =
-16     2     3    13
- 5    11    10     8
- 9     7     6    12
- 4    14    15     1
-
-&gt;&gt; cumsum(A,1)
-
-ans =
-16     2     3    13
-21    13    13    21
-30    20    19    33
-34    34    34    34
-
-&gt;&gt;cumsum(A,2)
-
-ans =
-16    18    21    34
- 5    16    26    34
- 9    16    22    34
- 4    18    33    34
-</code></pre><p><em>min/max(A,[],dim)</em></p>
-<h4 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h4><p>min(A)/max(A)：返回最小/最大的元素。</p>
-<p>如果A是向量，则返回最大的元素；如果A是矩阵，则返回一个包含每列最值的行向量；如果A是多维矩阵，</p>
-<p>[Y,U]=max(A)：返回行向量Y和U，Y向量记录A的每列的最大值，U向量记录每列最大值的行号</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="http://yoursite.com/2016/11/11/learning-matlab/" data-id="civdi2vza00001oqn307vgwwd" class="article-share-link">Share</a>
-      
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Matlab-语法-函数/">Matlab 语法 函数</a></li></ul>
-
-    </footer>
-  </div>
   
 </article>
-
-
-  
 
 </section>
         
