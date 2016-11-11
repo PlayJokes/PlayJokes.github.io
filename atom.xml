@@ -1,0 +1,227 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>PlayJokes</title>
+  <subtitle>加油吧少年</subtitle>
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://playjokes.github.io/"/>
+  <updated>2016-11-11T10:02:27.412Z</updated>
+  <id>http://playjokes.github.io/</id>
+  
+  <author>
+    <name>Pan Jie</name>
+    
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>Matlab使用队列方法</title>
+    <link href="http://playjokes.github.io/2016/11/11/matlab-queue/"/>
+    <id>http://playjokes.github.io/2016/11/11/matlab-queue/</id>
+    <published>2016-11-11T08:05:50.000Z</published>
+    <updated>2016-11-11T10:02:27.412Z</updated>
+    
+    <content type="html"><![CDATA[<p>在实现排队论算法过程中，需要使用队列数据结构；然Matlab中无基础数据结构，搜索无果；其中发现有自己时间队列，但有各种问题，遂放弃。</p>
+<p>发现有更好的替代方式：<strong>直接使用Java库中LinkedList库</strong><br><a href="http://undocumentedmatlab.com/blog/using-java-collections-in-matlab" title="Using Java Collections in Matlab" target="_blank" rel="external">http://undocumentedmatlab.com/blog/using-java-collections-in-matlab</a></p>
+<blockquote>
+<p>Java Collections include interfaces and implementation classes. As of Matlab R2011b, Java interfaces cannot be used directly – only the implementation classes. Of the many Collection classes, the following are perhaps most useful (all classes belong to the java.util package, unless otherwise noted):</p>
+<ul>
+<li>Set: an interface that is implemented by classes characterized by their prevention of duplicate elements. Some notable implementation classes: EnumSet, HashSet, LinkedHashSet, TreeSet.</li>
+</ul>
+<ul>
+<li>List: an interface that is implemented by classes characterized by ordered elements (a.k.a. sequences), which may be duplicates of each other and accessed based on their exact position within the list. Specially optimized internal algorithms enable sorting, shuffling, reversing, rotating, and other modifications of the list. Some notable implementation classes: Vector, Stack, LinkedList.</li>
+</ul>
+<ul>
+<li>Queue: an interface that is implemented by classes designed for holding elements prior to processing, in an ordered list accessible only at one (=head) or two (head and tail) positions. All classes include specialized insertion, extraction and inspection methods. Some notable implementation classes: LinkedList, ArrayDeque, PriorityQueue.</li>
+</ul>
+<ul>
+<li>Map: an interface that is implemented by classes characterized by elements of unique keys paired with associated values. Early Java versions used the java.util.Dictionary abstract superclass, but this was subsequently replaced by the java.util.Map interface class. Maps contain specialized algorithms for fast retrieval based on a supplied key. Some of the notable implementation classes: EnumMap, HashMap, Hashtable, TreeMap, LinkedHashMap.</li>
+</ul>
+</blockquote>
+<p>如上可知，在MatlabR2011b之后，matlab不能支持直接使用Java接口，而是已实现好的Classes。而我们可以使用Java.Util库中的常用数据结构。其中我挑了LinkedList来替代Queue。同理，我们可以用Java自己实现很多有用的类，编译完成后直接使用Matlab调用。</p>
+<p>注意：Matlab调用Java接口，不能使用Matlab自定义数据（自定义struct，class数据），只有简单数据类型（Matlab基本数据类型），除非线性化后能加入到对应数据结构中。</p>
+<p>在Matlab命令行窗口输入 <code>methods(java.util.LinkedList)</code>来查看所有接口。</p>
+<pre><code>&gt;&gt; methods(java.util.LinkedList)
+
+类 java.util.LinkedList 的方法:
+
+LinkedList descendingIterator isEmptypeek   removeAll  toArray
+addelementiterator   peekFirst  removeFirsttoString   
+addAll equals lastIndexOfpeekLast   removeFirstOccurrence  wait   
+addFirst   getlistIterator   poll   removeLast 
+addLastgetClass   notify pollFirst  removeLastOccurrence   
+clear  getFirst   notifyAll  pollLast   retainAll  
+clone  getLastoffer  popset
+contains   hashCode   offerFirst push   size   
+containsAllindexOfofferLast  remove subList
+</code></pre><p>对于队列而且我们需要<code>Push()</code>, <code>Pop()</code>, <code>Peek()</code>, <code>Size()</code>这4个接口，那么对应于LinkedList，分别为<code>add()</code>, <code>pop()</code>, <code>peek()</code>, <code>size()</code>。</p>
+<pre><code>&gt;&gt; queue=java.util.LinkedList;
+&gt;&gt; queue.add(1);
+&gt;&gt; queue.add(2);
+&gt;&gt; queue
+
+queue =
+
+[1.0, 2.0]
+
+&gt;&gt; peek=queue.peek();
+&gt;&gt; peek
+
+peek =
+
+1
+
+&gt;&gt; size=queue.size();
+&gt;&gt; size
+
+size =
+
+2
+
+&gt;&gt; queue.pop();
+&gt;&gt; queue
+
+queue =
+
+[2.0]
+</code></pre><p>插曲：在实现抢占式排队系统中，高优先级中断需要抢占低优先级，将低优先级中断回退到其优先级中的队首位置，所以在使用LinkedList时，使用了<code>addFirst()</code>来插入队首。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在实现排队论算法过程中，需要使用队列数据结构；然Matlab中无基础数据结构，搜索无果；其中发现有自己时间队列，但有各种问题，遂放弃。&lt;/p&gt;
+&lt;p&gt;发现有更好的替代方式：&lt;strong&gt;直接使用Java库中LinkedList库&lt;/strong&gt;&lt;br&gt;&lt;a href=&quot;
+    
+    </summary>
+    
+      <category term="Matlab" scheme="http://playjokes.github.io/categories/Matlab/"/>
+    
+    
+      <category term="Matlab" scheme="http://playjokes.github.io/tags/Matlab/"/>
+    
+      <category term="队列" scheme="http://playjokes.github.io/tags/%E9%98%9F%E5%88%97/"/>
+    
+      <category term="Java" scheme="http://playjokes.github.io/tags/Java/"/>
+    
+      <category term="LinkedList" scheme="http://playjokes.github.io/tags/LinkedList/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Matlab学习笔记</title>
+    <link href="http://playjokes.github.io/2016/11/11/learning-matlab/"/>
+    <id>http://playjokes.github.io/2016/11/11/learning-matlab/</id>
+    <published>2016-11-11T07:51:29.000Z</published>
+    <updated>2016-11-11T08:31:40.002Z</updated>
+    
+    <content type="html"><![CDATA[<h2 id="Matlab基础"><a href="#Matlab基础" class="headerlink" title="Matlab基础"></a>Matlab基础</h2><h3 id="基本语法"><a href="#基本语法" class="headerlink" title="基本语法"></a>基本语法</h3><p><em>数组</em></p>
+<p>数组在内存中按列存储</p>
+<p>数组引用方式：<br>下标引用，以二维数组为例<code>A(a,b)</code>中a、b可由数字，冒号，end表示；a表示行，b表示列，若引用原数组中没有的元素，将扩展数组并且添加扩展的元素为0</p>
+<p>冒号使用:<br>单冒号    :表示所有元素<br>双元素冒号 5:10表示从5开始到10号6个元素，包含首尾。<br>三元素冒号 5:2:10表示从5开始到10号以间隔2选取元素[5,7,9]</p>
+<p>例：</p>
+<pre><code>&gt;&gt; A = magic(4)
+
+A = 16  2   3  13
+    5  11  10   8
+    9   7   6  12
+    4  14  15   1
+
+&gt;&gt; A(3,4) 
+
+    ans = 12
+
+&gt;&gt; A(1:end,2)
+
+    ans =   2
+            11
+            7
+            14
+
+&gt;&gt; A(:) 
+
+    ans =   16
+            5
+            9
+            .
+            .
+            12
+            1
+</code></pre><p>向量、布尔引用</p>
+<p>A([1,2])得到按需引用的列向量<br>x=A&gt;5 得到bool数组，<br>A(x) 得到按需引用的列向量</p>
+<h3 id="函数接口"><a href="#函数接口" class="headerlink" title="函数接口"></a>函数接口</h3><p><em>zeros(m,n,p…,classname)</em></p>
+<h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p>返回一个<code>m×n×p×...</code>的classname类型的零矩阵；<br>若无指定classname，默认返回double类型矩阵 </p>
+<p>classname取值：<code>&#39;double&#39;</code>,<code>&#39;single&#39;</code>, <code>&#39;int8&#39;</code>, <code>&#39;uint8&#39;</code>, <code>&#39;int16&#39;</code>, <code>&#39;uint16&#39;</code>, <code>&#39;int32&#39;</code>, or <code>&#39;uint32&#39;</code></p>
+<p>例：<code>zeros(3,2,&#39;uint8&#39;)</code>，<code>zeros(3,2)</code></p>
+<p><em>exprnd(mu,m,n,…)</em></p>
+<h4 id="描述-1"><a href="#描述-1" class="headerlink" title="描述"></a>描述</h4><p>生成指定以mu为底的指数分布函数的随机数，返回的随机数结构与mu相同，mu可以为向量，矩阵等形式。</p>
+<p>例：</p>
+<pre><code>&gt;&gt; n1 = exprnd(5:10)
+
+n1 = 7.5943  18.3400  2.7113  3.0936  0.6078  9.5841
+
+&gt;&gt; n2 = exprnd(5,2,3)
+
+n2 = 24.3339  13.5271  1.8788
+    4.7932   4.3675  2.6468
+</code></pre><p><em>cumsum(A,dim)</em></p>
+<h4 id="描述-2"><a href="#描述-2" class="headerlink" title="描述"></a>描述</h4><p>返回A中各行的累加值，dim表示按第dim维累加，dim可以省略。cumsum函数返回结构同A。</p>
+<p>若A是一维向量， cumsum(A) 返回一个向量，该向量中第m行的元素是A中第1行到第m行的所有元素累加和；</p>
+<p>若A为二维数组，cumsum(A) = cumsum(A, 1)，结果中第m行第n列元素是A中第1行到第m行的所有第n列元素的累加和；同理 cumsum(A, 2)结果中第m行第n列元素是A中第1列到第m列的所有第n行元素的累加和；</p>
+<p>多维数组同二维。</p>
+<p>例：</p>
+<pre><code>&gt;&gt;A=[1,2,3,4,5]
+
+A =  1     2     3     4     5
+
+&gt;&gt;cumsum(A)
+
+ans = 1     3     6    10    15
+
+&gt;&gt;A=magic(4)
+
+A =
+16     2     3    13
+ 5    11    10     8
+ 9     7     6    12
+ 4    14    15     1
+
+&gt;&gt; cumsum(A,1)
+
+ans =
+16     2     3    13
+21    13    13    21
+30    20    19    33
+34    34    34    34
+
+&gt;&gt;cumsum(A,2)
+
+ans =
+16    18    21    34
+ 5    16    26    34
+ 9    16    22    34
+ 4    18    33    34
+</code></pre><p><em>min/max(A,[],dim)</em></p>
+<h4 id="描述-3"><a href="#描述-3" class="headerlink" title="描述"></a>描述</h4><p>min(A)/max(A)：返回最小/最大的元素。</p>
+<p>如果A是向量，则返回最大的元素；如果A是矩阵，则返回一个包含每列最值的行向量；如果A是多维矩阵，</p>
+<p>[Y,U]=max(A)：返回行向量Y和U，Y向量记录A的每列的最大值，U向量记录每列最大值的行号</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h2 id=&quot;Matlab基础&quot;&gt;&lt;a href=&quot;#Matlab基础&quot; class=&quot;headerlink&quot; title=&quot;Matlab基础&quot;&gt;&lt;/a&gt;Matlab基础&lt;/h2&gt;&lt;h3 id=&quot;基本语法&quot;&gt;&lt;a href=&quot;#基本语法&quot; class=&quot;headerlink&quot; 
+    
+    </summary>
+    
+      <category term="Matlab" scheme="http://playjokes.github.io/categories/Matlab/"/>
+    
+    
+      <category term="Matlab" scheme="http://playjokes.github.io/tags/Matlab/"/>
+    
+      <category term="语法" scheme="http://playjokes.github.io/tags/%E8%AF%AD%E6%B3%95/"/>
+    
+      <category term="函数" scheme="http://playjokes.github.io/tags/%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
+  
+</feed>
